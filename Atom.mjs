@@ -3,6 +3,9 @@
 
 
 
+
+
+
 class Atom {
     PERIOD = [
         {capacity: 0},   // PERIOD[0]
@@ -31,7 +34,44 @@ class Atom {
 }
 
 class ElectronCloud {
-    ORBITAL = {
+
+    constructor(numberOfElectrons){
+        const level = (numberOfElectrons) => {
+            if(numberOfElectrons > Atom.P[6].capacity && numberOfElectrons <= Atom.P[7].capacity){
+                return 7
+            } else if(numberOfElectrons > Atom.P[5].capacity){
+                return 6
+            } else if(numberOfElectrons > Atom.P[4].capacity){
+                return 5
+            } else if(numberOfElectrons > Atom.P[3].capacity){
+                return 4
+            } else if(numberOfElectrons > Atom.P[2].capacity){
+                return 3
+            } else if(numberOfElectrons > Atom.P[1].capacity){
+                return 2
+            } else if(numberOfElectrons > Atom.P[0].capacity){
+                return 1
+            } else {
+                throw new RangeError(`Number Of Electrons cannot be less than 0 or greater than ${Atom.P.findLast()}, as level ${Atom.P.length-1} is the maxiumum level of known elements`)
+            }
+        }
+        this.orbitals = []
+
+        /**
+         * @todo finish electron distribution
+         */
+        while(numberOfElectrons > 0){
+            Orbital.ORDER.forEach(orbital => {
+                if(this.level === 7){
+
+                }
+            })
+       }
+    }
+}
+
+class Orbital {
+    TYPE = {
         s: {
             capacity: 2,
             period: 1 
@@ -49,80 +89,40 @@ class ElectronCloud {
             period: 6
         }
     }
-    
-    // Shortand variable
-    O = ElectronCloud.ORBITAL
+    // Shortand field
+    T = Orbital.TYPE
+    orbitalOrder =  [Orbital.TYPE.s, Orbital.TYPE.f, Orbital.TYPE.d, Orbital.TYPE.p]
 
-    constructor(numberOfElectrons){
-        const level = 0
-        this.orbitals = []
-
-
-        switch(numberOfElectrons){
-            case (numberOfElectrons > 86):
-                this.orbitals.concat([
-                    new Orbital(),
-                    new SOrbital(),
-                    new SOrbital(),
-                    new POrbital(),
-                    new SOrbital(),
-                    new POrbital(),
-                    new SOrbital(),
-                    new POrbital(),
-                    new DOrbital(),
-                    new SOrbital(),
-                    new POrbital(),
-                    new DOrbital(),
-                ])
-        }
-
-        while(numberOfElectrons > 0){
-            if(level[0] === 0){
-                level++
-            } else if (level[1]===1){
-                numberOfElectrons = ElectronCloud.O.s.capacity - numberOfElectrons
-            } else {
-                throw new RangeError(`Theoretically there could be more atoms, but for now the capacity cannot exceed ${Atom.P.findLast().capacity}`)
-            }
-        }
-    }
-}
-
-// Unneeded for now
-class Period {
-    constructor(){
-        this.level = [
-            {capacity: 0}, // level[0]
-            {capacity: 2}, // level[1]
-            {capacity: 10}, // level[2]
-            {capacity: 18},
-            {capacity: 36},
-            {capacity: 54},
-            {capacity: 86},
-            {capacity: 118}
-        ]
-    }
-}
-
-class Orbital {
-    orbitalOrder =  [Orbital.s, Orbital.f, Orbital.d, Orbital.p]
-
-    constructor(capacity, levelInt){
+    constructor(OrbitalType, levelInt){
         this.level = levelInt
-        this.type = ''
-        this.capacity = capacity
+        this.type = OrbitalType
+        this.contains = 0
     }
 }
 
 class SOrbital extends Orbital {
     constructor(levelInt){
-        super(2, levelInt)
-        this.type = Orbital.s
+        super(Orbital.TYPE.s, levelInt)
     }
 }
 
+class POrbital extends Orbital {
+    constructor(levelInt){
+        super(Orbital.TYPE.p, levelInt)
+    }
+}
 
+class DOrbital extends Orbital {
+    constructor(levelInt){
+        super(Orbital.TYPE.d, levelInt)
+    }
+}
 
+class FOrbital extends Orbital {
+    constructor(levelInt){
+        super(Orbital.TYPE.f, levelInt)
+    }
+}
 
 
 
