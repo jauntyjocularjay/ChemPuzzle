@@ -60,13 +60,14 @@ class ElectronCloud {
         /**
          * @todo finish electron distribution
          */
-        while(numberOfElectrons > 0){
-            Orbital.ORDER.forEach(orbital => {
-                if(this.level === 7){
+        this.distributeElectrons(numberOfElectrons)
+    }
 
-                }
-            })
-       }
+    /**
+     * @stub ElectronCloud.distributeElectrons
+     */
+    distributeElectrons() {
+        //stub
     }
 }
 
